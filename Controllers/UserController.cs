@@ -4,7 +4,15 @@ namespace Hairdresser.Controllers
 {
     public class UserController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Appointments()
+        {
+            return View();
+        }
+        public IActionResult Login()
+        {
+            return View();
+        }
+        public IActionResult Profile()
         {
             return View();
         }
