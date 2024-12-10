@@ -24,22 +24,7 @@ namespace Hairdresser.Controllers
             // Veritabanındaki tüm kullanıcıları al
             var users = await _context.User.ToListAsync();
             return View(users);  // Kullanıcıları View'a gönder
-        }
-
-        public IActionResult AddUser()
-        {
-            var user = new User
-            {
-                FullName = "John Doe",
-                Email = "john.doe@example.com",
-                Password = "securepassword"
-            };
-
-            _context.User.Add(user);
-            _context.SaveChanges();
-
-            return Content("User added successfully!");
-        }
+        }   
 
         public IActionResult Appointments()
         {
@@ -53,10 +38,6 @@ namespace Hairdresser.Controllers
         {
             return View();
         }
-        public IActionResult Profile()
-        {
-            return View();
-        }    
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -155,6 +136,74 @@ namespace Hairdresser.Controllers
         {
             await HttpContext.SignOutAsync("CookieAuth");
             return RedirectToAction("Index", "Home");
+        }
+
+        // Profil sayfasını gösterir
+        public async Task<IActionResult> Profile()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Giriş yapan kullanıcının ID'si
+            var user = await _context.User.FirstOrDefaultAsync(u => u.ID.ToString() == userId);
+
+            if (user != null)
+            {
+                return View(user);
+            }
+            // Kullanıcı bulunamazsa hata mesajı döndür
+            TempData["ErrorMessage"] = "User not found!";
+            return View();
+        }
+
+        // Profil güncelleme işlemi
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateProfile(User model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var user = await _context.User.FirstOrDefaultAsync(u => u.ID == model.ID);
+
+                    if (user != null)
+                    {
+                        // Kullanıcı bulunduysa, bilgileri güncelle
+                        user.FullName = model.FullName;
+                        user.PhoneNumber = model.PhoneNumber;
+
+                        // Şifreyi değiştirmeyi istiyorsa
+                        if (!string.IsNullOrEmpty(model.Password))
+                        {
+                            user.Password = BCrypt.Net.BCrypt.HashPassword(model.Password);
+                        }
+
+                        // Değişiklikleri kaydet
+                        _context.User.Update(user);
+                        await _context.SaveChangesAsync();
+
+                        TempData["SuccessMessage"] = "Profile updated successfully!";
+                        return RedirectToAction("Profile");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "User not found.");
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", $"An error occurred while updating the profile: {ex.Message}");
+                }
+            }
+            else
+            {
+                // Hata mesajlarını kontrol et
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine(error.ErrorMessage);  // Hata mesajlarını konsola yazdır
+                }
+            }
+
+            return View("Profile", model);
         }
     }
 }

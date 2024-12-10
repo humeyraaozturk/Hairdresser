@@ -2,6 +2,7 @@
 using Hairdresser.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hairdresser.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241210113542_AddServices")]
+    partial class AddServices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -38,6 +41,22 @@ namespace Hairdresser.Migrations
                     b.HasIndex("ServiceId");
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AvailableHours = "09:00-17:00",
+                            FullName = "Ahmet Yılmaz",
+                            ServiceId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AvailableHours = "10:00-18:00",
+                            FullName = "Ayşe Kaya",
+                            ServiceId = 2
+                        });
                 });
 
             modelBuilder.Entity("Hairdresser.Models.Service", b =>
@@ -59,6 +78,50 @@ namespace Hairdresser.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Services");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Duration = 1,
+                            Name = "Saç Kesimi",
+                            Price = 700.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Duration = 3,
+                            Name = "Saç Boyası",
+                            Price = 1500.0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Duration = 2,
+                            Name = "Saç Bakımı",
+                            Price = 1000.0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Duration = 2,
+                            Name = "Profesyonel Makyaj",
+                            Price = 1000.0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Duration = 1,
+                            Name = "Nail Art",
+                            Price = 1500.0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Duration = 3,
+                            Name = "Cilt Bakımı",
+                            Price = 1500.0
+                        });
                 });
 
             modelBuilder.Entity("Hairdresser.Models.User", b =>

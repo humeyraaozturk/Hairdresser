@@ -7,12 +7,30 @@ namespace Hairdresser.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        // Kullanıcılar için bir tablo tanımı
+        // Tablolar
         public DbSet<User> User { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Service> Services { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=./Data/app.db");  // Veritabanı yolu
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite("Data Source=Data/Hairdresser.db");
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Employee ile Service arasında ilişki
+            modelBuilder.Entity<Employee>()
+                .HasOne(e => e.Service)
+                .WithMany(s => s.Employees)
+                .HasForeignKey(e => e.ServiceId)
+                .OnDelete(DeleteBehavior.Cascade);
+         
         }
     }
 }
