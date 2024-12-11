@@ -18,15 +18,16 @@
 
                 @{
                     ViewData["Title"] = "Register";
+
                 }
 
                 <h2>@ViewData["Title"]</h2>
 
                 <form method="post">    
                     <div class="form-group">
-                        <label asp-for="ID" class="control-label">ID Number</label>
-                        <input asp-for="ID" class="form-control" />
-                        <span asp-validation-for="ID" class="text-danger"></span>
+                        <label asp-for="UserID" class="control-label">ID Number</label>
+                        <input asp-for="UserID" class="form-control" />
+                        <span asp-validation-for="UserID" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="FullName" class="control-label">Full Name</label>
@@ -52,6 +53,20 @@
                 </form>
                 @section Scripts {
                     <partial name="_ValidationScriptsPartial" />
+                }
+                @{
+                    if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+                    }
+
+                    if (!ViewData.ModelState.IsValid)
+                    {
+                        foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <div class="alert alert-danger">@error.ErrorMessage</div>
+                        }
+                    }
                 }
             </div>
         </div>

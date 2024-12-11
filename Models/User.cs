@@ -4,10 +4,11 @@ namespace Hairdresser.Models
 {
     public class User
     {
+        [Key]
         [Required(ErrorMessage = "ID required")]
         [StringLength(11, MinimumLength = 11, ErrorMessage = "ID must be exactly 11 .")]
         [RegularExpression(@"^\d{11}$", ErrorMessage = "ID must be exactly 11 digits")]
-        public string ID { get; set; }
+        public string UserID { get; set; }
 
         [Required(ErrorMessage = "Full Name is required.")]
         public string FullName { get; set; }
@@ -23,5 +24,8 @@ namespace Hairdresser.Models
         [Required(ErrorMessage = "Phone number is required")]
         [Phone(ErrorMessage = "Invalid phone number format")]
         public string PhoneNumber { get; set; }
+
+        // Kullanıcının aldığı randevular
+        public ICollection<Appointment>? Appointments { get; set; } // Nullable, isteğe bağlı
     }
 }

@@ -16,31 +16,16 @@ namespace Hairdresser.Controllers
         //public IActionResult Index()
         //{
         //    return View();
-        //}
-
-       
+        //}    
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Employee employee)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Employees.Add(employee);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(employee);
-        }
+     
         public IActionResult Details()
         {
             return View();
         }
-        public IActionResult Edit()
-        {
-            return View();
-        }    
-
+        
         public async Task<IActionResult> Index()
         {
             var employees = await _context.Employees

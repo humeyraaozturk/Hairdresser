@@ -41,12 +41,12 @@ using (var scope = app.Services.CreateScope())
     if (!dbContext.Services.Any())
     {
         dbContext.Services.AddRange(
-            new Service { Id = 1, Name = "Saç Kesimi", Price = 700, Duration = 1 },
-            new Service { Id = 2, Name = "Saç Boyasý", Price = 1500, Duration = 3 },
-            new Service { Id = 3, Name = "Saç Bakýmý", Price = 1000, Duration = 2 },
-            new Service { Id = 4, Name = "Profesyonel Makyaj", Price = 1000, Duration = 2 },
-            new Service { Id = 5, Name = "Nail Art", Price = 1500, Duration = 1 },
-            new Service { Id = 6, Name = "Cilt Bakýmý", Price = 1500, Duration = 3 }
+            new Service { ServiceID = 1, Name = "Saç Kesimi", Price = 700, Duration = 1 },
+            new Service { ServiceID = 2, Name = "Saç Boyasý", Price = 1500, Duration = 3 },
+            new Service { ServiceID = 3, Name = "Saç Bakýmý", Price = 1000, Duration = 2 },
+            new Service { ServiceID = 4, Name = "Profesyonel Makyaj", Price = 1000, Duration = 2 },
+            new Service { ServiceID = 5, Name = "Nail Art", Price = 1500, Duration = 1 },
+            new Service { ServiceID = 6, Name = "Cilt Bakýmý", Price = 1500, Duration = 3 }
         );
         // Veritabanýna kaydet
         await dbContext.SaveChangesAsync();
@@ -57,24 +57,24 @@ using (var scope = app.Services.CreateScope())
     if (!dbContext.Employees.Any()) // Eðer çalýþanlar yoksa ekle
     {
         dbContext.Employees.AddRange(
-            new Employee { Id = 1, FullName = "Ahmet Yýlmaz", ServiceId = 1, AvailableHours = "09:00-17:00" },
-            new Employee { Id = 2, FullName = "Ayþe Kaya", ServiceId = 1, AvailableHours = "10:00-18:00" },
-            new Employee { Id = 3, FullName = "Mehmet Demir", ServiceId = 1, AvailableHours = "09:00-15:00" },
-            new Employee { Id = 4, FullName = "Fatma Çelik", ServiceId = 2, AvailableHours = "10:00-16:00" },
-            new Employee { Id = 5, FullName = "Hasan Yýldýz", ServiceId = 2, AvailableHours = "11:00-19:00" },
-            new Employee { Id = 6, FullName = "Zeynep Aydýn", ServiceId = 2, AvailableHours = "08:00-16:00" },
-            new Employee { Id = 7, FullName = "Veli Aksoy", ServiceId = 3, AvailableHours = "10:00-18:00" },
-            new Employee { Id = 8, FullName = "Selin Yýlmaz", ServiceId = 3, AvailableHours = "09:00-17:00" },
-            new Employee { Id = 9, FullName = "Cemal Korkmaz", ServiceId = 3, AvailableHours = "09:30-18:30" },
-            new Employee { Id = 10, FullName = "Elif Öztürk", ServiceId = 4, AvailableHours = "08:00-14:00" },
-            new Employee { Id = 11, FullName = "Gökhan Büyüker", ServiceId = 4, AvailableHours = "10:30-16:30" },
-            new Employee { Id = 12, FullName = "Nurgül Duman", ServiceId = 4, AvailableHours = "07:00-15:00" },
-            new Employee { Id = 13, FullName = "Emre Çakýr", ServiceId = 5, AvailableHours = "11:00-19:00" },
-            new Employee { Id = 14, FullName = "Ýrem Kýlýç", ServiceId = 5, AvailableHours = "09:00-17:00" },
-            new Employee { Id = 15, FullName = "Seda Arslan", ServiceId = 5, AvailableHours = "10:00-18:00" },
-            new Employee { Id = 16, FullName = "Serdar Kaya", ServiceId = 6, AvailableHours = "09:00-17:00" },
-            new Employee { Id = 17, FullName = "Ayfer Güneþ", ServiceId = 6, AvailableHours = "08:00-16:00" },
-            new Employee { Id = 18, FullName = "Orhan Kara", ServiceId = 6, AvailableHours = "09:30-17:30" }
+            new Employee { EmployeeID = "1", FullName = "Ahmet Yýlmaz", EmployeeServiceID = 1, AvailableHours = "09:00-17:00" },
+            new Employee { EmployeeID = "2", FullName = "Ayþe Kaya", EmployeeServiceID = 1, AvailableHours = "10:00-18:00" },
+            new Employee { EmployeeID = "3", FullName = "Mehmet Demir", EmployeeServiceID = 1, AvailableHours = "09:00-15:00" },
+            new Employee { EmployeeID = "4", FullName = "Fatma Çelik", EmployeeServiceID = 2, AvailableHours = "10:00-16:00" },
+            new Employee { EmployeeID = "5", FullName = "Hasan Yýldýz", EmployeeServiceID = 2, AvailableHours = "11:00-19:00" },
+            new Employee { EmployeeID = "6", FullName = "Zeynep Aydýn", EmployeeServiceID = 2, AvailableHours = "08:00-16:00" },
+            new Employee { EmployeeID = "7", FullName = "Veli Aksoy", EmployeeServiceID = 3, AvailableHours = "10:00-18:00" },
+            new Employee { EmployeeID = "8", FullName = "Selin Yýlmaz", EmployeeServiceID = 3, AvailableHours = "09:00-17:00" },
+            new Employee { EmployeeID = "9", FullName = "Cemal Korkmaz", EmployeeServiceID = 3, AvailableHours = "09:30-18:30" },
+            new Employee { EmployeeID = "10", FullName = "Elif Öztürk", EmployeeServiceID = 4, AvailableHours = "08:00-14:00" },
+            new Employee { EmployeeID = "11", FullName = "Gökhan Büyüker", EmployeeServiceID = 4, AvailableHours = "10:30-16:30" },
+            new Employee { EmployeeID = "12", FullName = "Nurgül Duman", EmployeeServiceID = 4, AvailableHours = "07:00-15:00" },
+            new Employee { EmployeeID = "13", FullName = "Emre Çakýr", EmployeeServiceID = 5, AvailableHours = "11:00-19:00" },
+            new Employee { EmployeeID = "14", FullName = "Ýrem Kýlýç", EmployeeServiceID = 5, AvailableHours = "09:00-17:00" },
+            new Employee { EmployeeID = "15", FullName = "Seda Arslan", EmployeeServiceID = 5, AvailableHours = "10:00-18:00" },
+            new Employee { EmployeeID = "16", FullName = "Serdar Kaya", EmployeeServiceID = 6, AvailableHours = "09:00-17:00" },
+            new Employee { EmployeeID = "17", FullName = "Ayfer Güneþ", EmployeeServiceID = 6, AvailableHours = "08:00-16:00" },
+            new Employee { EmployeeID = "18", FullName = "Orhan Kara", EmployeeServiceID = 6, AvailableHours = "09:30-17:30" }
         );
 
         // Veritabanýna kaydet

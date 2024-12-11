@@ -1,9 +1,6 @@
 ﻿using Hairdresser.Models;
 using Hairdresser.Data;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
-using BCrypt.Net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
@@ -30,10 +27,7 @@ namespace Hairdresser.Controllers
         {
             return View();
         }
-        public IActionResult Login()
-        {
-            return View();
-        }
+       
         public IActionResult Register()
         {
             return View();
@@ -43,9 +37,8 @@ namespace Hairdresser.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(User model)
         {
-            if (ModelState.IsValid)  // Form geçerli mi kontrol et
+            if (ModelState.IsValid)
             {
-                // Benzersiz E-posta kontrolü
                 if (await _context.User.AnyAsync(u => u.Email == model.Email))
                 {
                     ModelState.AddModelError("Email", "This email is already registered.");
@@ -54,36 +47,36 @@ namespace Hairdresser.Controllers
 
                 try
                 {
-                    // Şifreyi hash'le
                     model.Password = BCrypt.Net.BCrypt.HashPassword(model.Password);
-
-                    // Veritabanına kullanıcıyı ekle
                     _context.User.Add(model);
                     await _context.SaveChangesAsync();
 
-                    // Kayıt başarılı, yönlendir
                     return RedirectToAction("Index", "Home");
                 }
                 catch (Exception ex)
                 {
-                    // Hata durumunda ModelState'e hata ekle
-                    ModelState.AddModelError("", $"An error occurred while registering: {ex.Message}");
+                    // Hata loglama işlemi
+                    Console.Error.WriteLine($"Registration Error: {ex.Message}");
+                    ModelState.AddModelError("", "An error occurred while processing your request.");
                 }
             }
             else
             {
-                // Hata varsa, hata mesajlarını kontrol et
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
-                    Console.WriteLine(error.ErrorMessage);  // Hata mesajlarını konsola yazdır
+                    Console.WriteLine($"Model Error: {error.ErrorMessage}");
                 }
+                return View(model);
             }
-
             // Eğer ModelState geçerli değilse, form tekrar gösterilecek
             return View(model);
 
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)
@@ -101,7 +94,7 @@ namespace Hairdresser.Controllers
                     {
                         new Claim(ClaimTypes.Name, user.FullName),
                         new Claim(ClaimTypes.Email, user.Email),
-                        new Claim(ClaimTypes.NameIdentifier, user.ID.ToString())
+                        new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString())
                     };
 
                     // ClaimsPrincipal oluştur
@@ -138,72 +131,96 @@ namespace Hairdresser.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // Profil sayfasını gösterir
+
+        // Profil sayfasını görüntüler
+        [HttpGet]
         public async Task<IActionResult> Profile()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Giriş yapan kullanıcının ID'si
-            var user = await _context.User.FirstOrDefaultAsync(u => u.ID.ToString() == userId);
+            var user = await _context.User.FindAsync(userId);
 
-            if (user != null)
+            if (user == null)
             {
-                return View(user);
+                return NotFound();
             }
-            // Kullanıcı bulunamazsa hata mesajı döndür
-            TempData["ErrorMessage"] = "User not found!";
+
+            return View(user);
+        }
+
+        // Profil güncelleme sayfasını görüntüler
+        [HttpGet]
+        public async Task<IActionResult> EditProfile()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Giriş yapan kullanıcının ID'si
+            var user = await _context.User.FindAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        // Profil bilgilerini günceller
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateProfile(User model, string Password)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Giriş yapan kullanıcının ID'si
+            var user = await _context.User.FindAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Şifreyi kontrol et
+            if (!BCrypt.Net.BCrypt.Verify(Password, user.Password))
+            {
+                TempData["ErrorMessage"] = "Incorrect password. Please try again.";
+                return RedirectToAction("EditProfile");
+            }
+
+            // Şifre doğruysa bilgileri güncelle
+            user.FullName = model.FullName;
+            user.PhoneNumber = model.PhoneNumber;
+
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Profile updated successfully.";
+            return RedirectToAction("Profile");
+        }
+
+        [HttpGet]
+        public IActionResult EditPassword()
+        {
             return View();
         }
 
-        // Profil güncelleme işlemi
+        // Şifreyi günceller
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateProfile(User model)
+        public async Task<IActionResult> UpdatePassword(string oldPassword, string newPassword)
         {
-            if (ModelState.IsValid)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Giriş yapan kullanıcının ID'si
+            var user = await _context.User.FindAsync(userId);
+
+            // Eski şifreyi kontrol et
+            if (!BCrypt.Net.BCrypt.Verify(oldPassword, user.Password))
             {
-                try
-                {
-                    var user = await _context.User.FirstOrDefaultAsync(u => u.ID == model.ID);
-
-                    if (user != null)
-                    {
-                        // Kullanıcı bulunduysa, bilgileri güncelle
-                        user.FullName = model.FullName;
-                        user.PhoneNumber = model.PhoneNumber;
-
-                        // Şifreyi değiştirmeyi istiyorsa
-                        if (!string.IsNullOrEmpty(model.Password))
-                        {
-                            user.Password = BCrypt.Net.BCrypt.HashPassword(model.Password);
-                        }
-
-                        // Değişiklikleri kaydet
-                        _context.User.Update(user);
-                        await _context.SaveChangesAsync();
-
-                        TempData["SuccessMessage"] = "Profile updated successfully!";
-                        return RedirectToAction("Profile");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "User not found.");
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", $"An error occurred while updating the profile: {ex.Message}");
-                }
-            }
-            else
-            {
-                // Hata mesajlarını kontrol et
-                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-                {
-                    Console.WriteLine(error.ErrorMessage);  // Hata mesajlarını konsola yazdır
-                }
+                ModelState.AddModelError("OldPassword", "The provided password is incorrect.");
+                return View("Profile");
             }
 
-            return View("Profile", model);
+            // Yeni şifreyi hashleyip veritabanına kaydet
+            user.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Password updated successfully.";
+            return RedirectToAction("Profile");
         }
     }
 }
