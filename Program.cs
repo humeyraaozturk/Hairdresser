@@ -81,7 +81,28 @@ using (var scope = app.Services.CreateScope())
         await dbContext.SaveChangesAsync();
         Console.WriteLine("Çalýþanlar baþarýyla eklendi.");
     }
-    
+
+    // Hizmetleri sadece bir kez eklemek için kontrol et
+    // Baþlangýç hizmetleri eklenir
+    if (!dbContext.Appointments.Any())
+    {
+        var service = dbContext.Services.FirstOrDefault(s => s.ServiceID == 1); // ID = 1 olan servisi al
+        dbContext.Appointments.AddRange( 
+            new Appointment {
+                AppointmentID = 1,
+                AppointmentServiceID = service.ServiceID,
+                AppointmentUserID = "11159931640",
+                AppointmentEmployeeID = "11111111111",
+                AppointmentDate = new DateTime(2024, 12, 15, 14, 30, 0), // Doðru format
+                Status = "Beklemede",
+                TotalPrice = service.Price
+            }
+            
+        );
+        // Veritabanýna kaydet
+        await dbContext.SaveChangesAsync();
+    }
+
 }
 
 app.UseHttpsRedirection();

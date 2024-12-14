@@ -23,11 +23,24 @@ namespace Hairdresser.Controllers
             return View(users);  // Kullanıcıları View'a gönder
         }   
 
-        public IActionResult Appointments()
+        public async Task<IActionResult> Appointments()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Giriş yapan kullanıcının ID'si
+                                                                         // Veritabanından oturumdaki kullanıcıya ait randevuları getir
+            var userAppointments = await  _context.Appointments
+                                    .Where(a => a.AppointmentUserID == userId)
+                                    .Include(a => a.Service)
+                                    .Include(a => a.Employee)
+                                    .ToListAsync();
+
+            return View(userAppointments); // View'e gönder
         }
-       
+
+        public async Task<IActionResult> EditAppointment()
+        {
+            return RedirectToAction("Appointments");
+        }
+
         public IActionResult Register()
         {
             return View();

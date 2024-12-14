@@ -3,3 +3,69 @@
 *@
 @{
 }
+@model List<Hairdresser.Models.Appointment>
+
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="container section-title" data-aos="fade-up">
+                    <h2>My Appointments</h2>
+                </div>
+                <div class="card-body">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
+
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            @TempData["ErrorMessage"]
+                        </div>
+                    }
+
+                    @foreach (var appointment in Model.Select((value, index) => new { value, index }))
+                    {
+                        <div>
+                            <div class="mb-3">
+                                <h3>Appointment @((appointment.index + 1))</h3> <!-- Sıra numarası -->
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label underline">Service</label>
+                                <p>@appointment.value.Service.Name</p>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label underline">Employee</label>
+                                <p>@appointment.value.Employee.FullName</p>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label underline">Date</label>
+                                <p>@appointment.value.AppointmentDate.ToString("dd/MM/yyyy HH:mm")</p>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label underline">Status</label>
+                                <p>@appointment.value.Status</p>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label underline">Total Price</label>
+                                <p>@appointment.value.Service.Price</p>
+                            </div>
+                            <hr class="my-4">
+                        </div>                     
+                    }
+                    <div class="mt-4">
+                        <a href="@Url.Action("EditAppointment", "User")" class="btn-login">Update Appointment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
