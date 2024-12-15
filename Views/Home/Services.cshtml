@@ -3,70 +3,139 @@
 *@
 @{
 }
-
-
 <main class="main">
-
-    <!-- Page Title -->
-    <div class="page-title" data-aos="fade">
-        <nav class="breadcrumbs">
-            <div class="container">
-                <ol>
-                    <li><a href="Index.html">Home</a></li>
-                    <li class="current">Services</li>
-                </ol>
-            </div>
-        </nav>
-    </div><!-- End Page Title -->
-
-    <!-- Service Details Section -->
     <section id="service-details" class="service-details section">
+        <!-- Page Title -->
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Services</h2>
+        </div><!-- End Section Title -->
+        <!-- Service Details Section -->
 
         <div class="container">
-
             <div class="row gy-5">
-
+                <!-- Services List -->
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-
                     <div class="service-box">
-                        <h4>Serices List</h4>
+                        <h4>Services List</h4>
                         <div class="services-list">
-                            <a href="#" class="active"><i class="bi bi-arrow-right-circle"></i><span>Hair Care</span></a>
-                            <a href="#"><i class="bi bi-arrow-right-circle"></i><span>Haircut</span></a>
-                            <a href="#"><i class="bi bi-arrow-right-circle"></i><span>Hair Coloring</span></a>
-                            <a href="#"><i class="bi bi-arrow-right-circle"></i><span>Proffessional Makeup</span></a>
-                            <a href="#"><i class="bi bi-arrow-right-circle"></i><span>Nail Art</span></a>
-                            <a href="#"><i class="bi bi-arrow-right-circle"></i><span>Skin Care</span></a>
+                            @foreach (var service in ViewBag.Services)
+                            {
+                                <a href="@Url.Action("Services", "Home", new { selectedServiceId = service.ServiceID })"
+                                   class="@(service.ServiceID == ViewBag.SelectedService.ServiceID ? "active" : "")">
+                                    <i class="bi bi-arrow-right-circle"></i>
+                                    <span>@service.Name</span>
+                                </a>
+                            }
                         </div>
                     </div><!-- End Services List -->
-
                 </div>
 
+                <!-- Selected Service Details -->
                 <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
-                    <img src="assets/img/services.jpg" alt="" class="img-fluid services-img">
-                    <h3>Temporibus et in vero dicta aut eius lidero plastis trand lined voluptas dolorem ut voluptas</h3>
-                    <p>
-                        Blanditiis voluptate odit ex error ea sed officiis deserunt. Cupiditate non consequatur et doloremque consequuntur. Accusantium labore reprehenderit error temporibus saepe perferendis fuga doloribus vero. Qui omnis quo sit. Dolorem architecto eum et quos deleniti officia qui.
-                    </p>
-                    <ul>
-                        <li><i class="bi bi-check-circle"></i> <span>Aut eum totam accusantium voluptatem.</span></li>
-                        <li><i class="bi bi-check-circle"></i> <span>Assumenda et porro nisi nihil nesciunt voluptatibus.</span></li>
-                        <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea</span></li>
-                    </ul>
-                    <p>
-                        Est reprehenderit voluptatem necessitatibus asperiores neque sed ea illo. Deleniti quam sequi optio iste veniam repellat odit. Aut pariatur itaque nesciunt fuga.
-                    </p>
-                    <p>
-                        Sunt rem odit accusantium omnis perspiciatis officia. Laboriosam aut consequuntur recusandae mollitia doloremque est architecto cupiditate ullam. Quia est ut occaecati fuga. Distinctio ex repellendus eveniet velit sint quia sapiente cumque. Et ipsa perferendis ut nihil. Laboriosam vel voluptates tenetur nostrum. Eaque iusto cupiditate et totam et quia dolorum in. Sunt molestiae ipsum at consequatur vero. Architecto ut pariatur autem ad non cumque nesciunt qui maxime. Sunt eum quia impedit dolore alias explicabo ea.
-                    </p>
-                    <a href="#" class="btn-get-started">Take An Appointment</a>
+                    <h3>@ViewBag.SelectedService.Name</h3>
 
+                    @if (ViewBag.SelectedService.ServiceID == 1) // Hair Care
+                    {
+                        <p>Hair Care: Professional care for your hair, ensuring it stays healthy and shiny.</p>
+                        <ul>
+                            <li><i class="bi bi-check-circle"></i> Scalp massage for healthy growth</li>
+                            <li><i class="bi bi-check-circle"></i> Deep conditioning treatments</li>
+                            <li><i class="bi bi-check-circle"></i> Customized care plans</li>
+                        </ul>
+                    }
+                    else if (ViewBag.SelectedService.ServiceID == 2) // Haircut
+                    {
+                        <p>Haircut: Stylish and trendy cuts tailored to your preferences.</p>
+                        <ul>
+                            <li><i class="bi bi-check-circle"></i> Expert stylists</li>
+                            <li><i class="bi bi-check-circle"></i> Personalized consultations</li>
+                            <li><i class="bi bi-check-circle"></i> Modern tools and techniques</li>
+                        </ul>
+                    }
+                    else if (ViewBag.SelectedService.ServiceID == 3) // Hair Coloring
+                    {
+                        <p>Hair Coloring: Vibrant and long-lasting colors to match your style.</p>
+                        <ul>
+                            <li><i class="bi bi-check-circle"></i> Professional-grade dyes</li>
+                            <li><i class="bi bi-check-circle"></i> Custom shades available</li>
+                            <li><i class="bi bi-check-circle"></i> Gentle formulas for healthy hair</li>
+                        </ul>
+                    }
+                    else if (ViewBag.SelectedService.ServiceID == 4) // Professional Makeup
+                    {
+                        <p>Professional Makeup: Flawless looks for every occasion.</p>
+                        <ul>
+                            <li><i class="bi bi-check-circle"></i> Bridal and party makeup</li>
+                            <li><i class="bi bi-check-circle"></i> Natural and glam styles</li>
+                            <li><i class="bi bi-check-circle"></i> High-quality products</li>
+                        </ul>
+                    }
+                    else if (ViewBag.SelectedService.ServiceID == 5) // Nail Art
+                    {
+                        <p>Nail Art: Creative designs for stunning nails.</p>
+                        <ul>
+                            <li><i class="bi bi-check-circle"></i> Wide range of designs</li>
+                            <li><i class="bi bi-check-circle"></i> High-quality nail polishes</li>
+                            <li><i class="bi bi-check-circle"></i> Professional application</li>
+                        </ul>
+                    }
+                    else if (ViewBag.SelectedService.ServiceID == 6) // Skin Care
+                    {
+                        <p>Skin Care: Gentle and effective treatments for radiant skin.</p>
+                        <ul>
+                            <li><i class="bi bi-check-circle"></i> Facials and peels</li>
+                            <li><i class="bi bi-check-circle"></i> Hydrating treatments</li>
+                            <li><i class="bi bi-check-circle"></i> Anti-aging solutions</li>
+                        </ul>
+                    }
+
+                    <!-- Take An Appointment Button -->
+                    <a href="#" class="btn-login" data-bs-toggle="modal" data-bs-target="#appointmentModal">Take An Appointment</a>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="appointmentModalLabel">Take An Appointment</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Appointment Form -->
+                                    <form id="appointmentForm" method="post" action="/Home/SaveAppointment">
+                                        <!-- Gizli Alan ile UserID Gönderimi -->
+@*                                         <input type="hidden" name="UserID" value="@ViewBag.UserID" />
+ *@                                        <div class="mb-3">
+                                            <label for="serviceName" class="form-label">Service</label>
+                                            <input type="text" class="form-control" id="serviceName" name="ServiceName" value="@ViewBag.SelectedService.Name" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="employeeDropdown" class="form-label">Select Employee</label>
+                                            <select class="form-select" id="employeeDropdown" name="EmployeeId" required>
+                                                <option value="">Select an Employee</option>
+                                                @foreach (var employee in ViewBag.Employees)
+                                                {
+                                                    <option value="@employee.EmployeeID">@employee.FullName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="appointmentDate" class="form-label">Select Date and Time</label>
+                                            <input type="datetime-local" class="form-control" id="appointmentDate" name="AppointmentDate" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Confirm Appointment</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
-
         </div>
-
-    </section><!-- /Service Details Section -->
-
+    </section>
 </main>

@@ -117,6 +117,8 @@ namespace Hairdresser.Controllers
                     // Oturumu başlat
                     await HttpContext.SignInAsync("CookieAuth", claimsPrincipal);
 
+                    HttpContext.Session.SetString("UserID", user.UserID.ToString());
+
                     // Şifre doğru, Home Index'e yönlendir
                     return RedirectToAction("Index", "Home");
                 }

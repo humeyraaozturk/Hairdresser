@@ -19,6 +19,15 @@ builder.Services.AddAuthentication("CookieAuth")
         options.LoginPath = "/User/Login"; // Giriþ yapýlmamýþsa yönlendirme yapýlacak sayfa
     });
 
+builder.Services.AddDistributedMemoryCache(); // Oturum için bellek önbelleði
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Oturum zaman aþýmý
+    options.Cookie.HttpOnly = true; // Güvenlik için sadece HTTP
+    options.Cookie.IsEssential = true; // Oturum çerezlerinin çalýþmasý için gerekli
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -108,6 +117,7 @@ using (var scope = app.Services.CreateScope())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseSession();
 app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
