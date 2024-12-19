@@ -1,147 +1,167 @@
 is_global = true
 build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Hairdresser
 build_property.RootNamespace = Hairdresser
-build_property.ProjectDir = D:\workspace\Term_5\WebProgramlama\Hairdresser\Hairdresser\
+build_property.ProjectDir = D:\workspace\Term_5\Hairdresser\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\workspace\Term_5\WebProgramlama\Hairdresser\Hairdresser
+build_property.MSBuildProjectDirectory = D:\workspace\Term_5\Hairdresser
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Admin/Dashboard.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Admin/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Admin/Login.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Admin/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Admin/ManageAppointments.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Admin/ManageAppointments.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWFuYWdlQXBwb2ludG1lbnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Admin/ManageEmpleyees.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Admin/ManageEmpleyees.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWFuYWdlRW1wbGV5ZWVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Admin/ManageUsers.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Admin/ManageUsers.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWFuYWdlVXNlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Appointment/Cancel.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Appointment/Cancel.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcQ2FuY2VsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Appointment/Create.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Appointment/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Appointment/Details.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Appointment/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Appointment/Index.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Appointment/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Appointment/Update.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Appointment/Update.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcVXBkYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Employee/Create.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Employee/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Employee/Details.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Employee/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Employee/Edit.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Employee/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Employee/Index.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Employee/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Home/About.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Home/About.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Home/Contact.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Home/Contact.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250YWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Home/Index.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Home/Services.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Home/Services.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTZXJ2aWNlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Salon/AddService.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Salon/AddService.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2Fsb25cQWRkU2VydmljZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Salon/Details.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Salon/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2Fsb25cRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Salon/Edit.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Salon/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2Fsb25cRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Salon/EditService.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Salon/EditService.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2Fsb25cRWRpdFNlcnZpY2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Salon/ManageServices.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Salon/ManageServices.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2Fsb25cTWFuYWdlU2VydmljZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Shared/Error.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/User/Appointments.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/User/Appointments.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxBcHBvaW50bWVudHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/User/Login.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/User/EditPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0UGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/Term_5/Hairdresser/Views/User/EditProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0UHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/Term_5/Hairdresser/Views/User/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/Term_5/Hairdresser/Views/User/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/User/Profile.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/User/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/_ViewImports.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/User/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/Term_5/Hairdresser/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/_ViewStart.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/Term_5/WebProgramlama/Hairdresser/Hairdresser/Views/Shared/_Layout.cshtml]
+[D:/workspace/Term_5/Hairdresser/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-aytejuuyik

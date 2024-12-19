@@ -3,3 +3,133 @@
 *@
 @{
 }
+@* Admin Panel - Randevu Yönetimi *@
+<main class="main">
+    <section id="admin-panel" class="admin-panel section">
+        <div class="container">
+            <!-- Page Title -->
+            <div class="section-title" data-aos="fade-up">
+                <h2>Admin Panel</h2>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <ul class="nav nav-tabs" id="adminTabs" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active" id="add-employee-tab" data-bs-toggle="tab" data-bs-target="#add-employee" type="button" role="tab" aria-controls="add-employee" aria-selected="true">Çalışan Ekle</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="remove-employee-tab" data-bs-toggle="tab" data-bs-target="#remove-employee" type="button" role="tab" aria-controls="remove-employee" aria-selected="false">Çalışan Sil</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="appointment-status-tab" data-bs-toggle="tab" data-bs-target="#appointment-status" type="button" role="tab" aria-controls="appointment-status" aria-selected="false">Randevu Durumu</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="employee-performance-tab" data-bs-toggle="tab" data-bs-target="#employee-performance" type="button" role="tab" aria-controls="employee-performance" aria-selected="false">Çalışan Verimlilik</button>
+                </li>
+            </ul>
+
+            <!-- Tabs Content -->
+            <div class="tab-content" id="adminTabsContent">
+                <!-- Çalışan Ekle -->
+                <div class="tab-pane fade show active" id="add-employee" role="tabpanel" aria-labelledby="add-employee-tab">
+                    <h3>Çalışan Ekle</h3>
+                    <form method="post" action="/Admin/AddEmployee">
+                        @* <div class="mb-3">
+                        <label for="employeeName" class="form-label">Çalışan Adı</label>
+                        <input type="text" class="form-control" id="employeeName" name="Name" required>
+                        </div>
+                        <div class="mb-3">
+                        <label for="employeePosition" class="form-label">Pozisyon</label>
+                        <input type="text" class="form-control" id="employeePosition" name="Position" required>
+                        </div> *@
+                        <button type="submit" class="btn btn-primary">Ekle</button>
+                    </form>
+                </div>
+
+                <!-- Çalışan Sil -->
+                <div class="tab-pane fade" id="remove-employee" role="tabpanel" aria-labelledby="remove-employee-tab">
+                    <h3>Çalışan Sil</h3>
+                    <form method="post" action="/Admin/RemoveEmployee">
+                        @* <div class="mb-3">
+                        <label for="employeeSelect" class="form-label">Çalışan Seç</label>
+                        <select class="form-select" id="employeeSelect" name="EmployeeId" required>
+                        <option value="">Çalışan Seç</option>
+                        @if (ViewBag.Employees != null && ViewBag.Employees.Count > 0)
+                        {
+                        @foreach (var employee in ViewBag.Employees)
+                        {
+                        <option value="@employee.EmployeeID">@employee.FullName</option>
+                        }
+                        }
+                        else
+                        {
+                        <p>Çalışan bulunamadı.</p>
+                        }
+
+                        </select>
+                        </div> *@
+                        <button type="submit" class="btn btn-danger">Sil</button>
+                    </form>
+                </div>
+
+                <!-- Randevu Durumu -->
+                <div class="tab-pane fade" id="appointment-status" role="tabpanel" aria-labelledby="appointment-status-tab">
+                    <h3>Randevu Durumu</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Kullanıcı</th>
+                                <th>Hizmet</th>
+                                <th>Tarih</th>
+                                <th>Durum</th>
+                                <th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @* @if (ViewBag.Appointments != null && ((List<Appointment>)ViewBag.Appointments).Count > 0)
+                            {
+                            @if (ViewBag.Appointments.Count > 0)
+                            {
+                            @foreach (var appointment in ViewBag.Appointments)
+                            {
+                            <tr>
+                            <td>@appointment.AppointmentID</td>
+                            <td>@appointment.User.FullName</td>
+                            <td>@appointment.Service.Name</td>
+                            <td>@appointment.Date</td>
+                            <td>@appointment.Status</td>
+                            <td>
+                            <form method="post" action="/Admin/UpdateAppointmentStatus">
+                            <input type="hidden" name="AppointmentId" value="@appointment.AppointmentID" />
+                            <button name="Status" value="Onaylandı" class="btn btn-success btn-sm">Onayla</button>
+                            <button name="Status" value="İptal Edildi" class="btn btn-danger btn-sm">İptal Et</button>
+                            </form>
+                            </td>
+                            </tr>
+                            }
+                            }
+                            else
+                            {
+                            <p>Randevu bulunamadı1.</p>
+                            }
+
+                            }
+                            else
+                            {
+                            <p>Randevu bulunamadı2.</p>
+                            }       *@
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Çalışan Verimlilik -->
+                <div class="tab-pane fade" id="employee-performance" role="tabpanel" aria-labelledby="employee-performance-tab">
+                    <h3>Çalışan Verimlilik</h3>
+                    <p>Burada çalışanların verimliliği analiz edilecektir.</p>
+                    <!-- Verimlilik metriklerini burada listeleyin -->
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

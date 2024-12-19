@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -97,28 +99,58 @@
             <!-- Kullanıcı oturum durumu kontrolü -->
             @if (User.Identity.IsAuthenticated)
             {
-                <!-- Kullanıcı giriş yaptıysa Dropdown Menüsü -->
-                <div class="dropdown">
-                    <a class="btn-login dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Welcome, @User.Identity.Name
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="userMenu">
-                        <li><a class="dropdown-item" asp-controller="User" asp-action="Profile">Profile</a></li>
-                        <li><a class="dropdown-item" asp-controller="User" asp-action="Appointments">Appointments</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <form asp-controller="User" asp-action="Logout" method="post">
-                                <button type="submit" class="dropdown-item">Log Out</button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
+                <!-- Kullanıcı giriş yaptıysa rol bilgisi kontrolü -->
+                var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+                if (userRole == "admin")
+                {
+                    <!-- Admin için Dropdown Menüsü -->
+                    <div class="dropdown">
+                        <a class="btn-login dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Welcome, @User.Identity.Name
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="userMenu">
+                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="Dashboard">Dashboard</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form asp-controller="User" asp-action="Logout" method="post">
+                                    <button type="submit" class="dropdown-item">Log Out</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else if (userRole == "user")
+                {
+                    <!-- User için Dropdown Menüsü -->
+                    <div class="dropdown">
+                        <a class="btn-login dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Welcome, @User.Identity.Name
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="userMenu">
+                            <li><a class="dropdown-item" asp-controller="User" asp-action="Profile">Profile</a></li>
+                            <li><a class="dropdown-item" asp-controller="User" asp-action="Appointments">Appointments</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form asp-controller="User" asp-action="Logout" method="post">
+                                    <button type="submit" class="dropdown-item">Log Out</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                foreach (var claim in User.Claims)
+                {
+                    Console.WriteLine($"Claim Type: {claim.Type}, Claim Value: {claim.Value}");
+                }
+
             }
             else
             {
                 <!-- Kullanıcı giriş yapmadıysa Log In Butonu -->
                 <a class="btn btn-get-started" asp-controller="User" asp-action="Login">Log In</a>
             }
+
 
         </div>
     </header>

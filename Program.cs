@@ -16,6 +16,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication("CookieAuth")
     .AddCookie("CookieAuth", options =>
     {
+        options.Cookie.HttpOnly = true;
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Cookie'nin geçerlilik süresi
+        options.SlidingExpiration = false;
         options.LoginPath = "/User/Login"; // Giriþ yapýlmamýþsa yönlendirme yapýlacak sayfa
     });
 
@@ -26,7 +29,6 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true; // Güvenlik için sadece HTTP
     options.Cookie.IsEssential = true; // Oturum çerezlerinin çalýþmasý için gerekli
 });
-
 
 var app = builder.Build();
 
@@ -93,25 +95,63 @@ using (var scope = app.Services.CreateScope())
 
     // Hizmetleri sadece bir kez eklemek için kontrol et
     // Baþlangýç hizmetleri eklenir
-    if (!dbContext.Appointments.Any())
+    //if (!dbContext.Appointments.Any())
+    //{
+    //    var service = dbContext.Services.FirstOrDefault(s => s.ServiceID == 1); // ID = 1 olan servisi al
+    //    dbContext.Appointments.AddRange( 
+    //        new Appointment {
+    //            AppointmentID = 1,
+    //            AppointmentServiceID = service.ServiceID,
+    //            AppointmentUserID = "11159931640",
+    //            AppointmentEmployeeID = "11111111111",
+    //            AppointmentDate = new DateTime(2024, 12, 15, 14, 30, 0), // Doðru format
+    //            Status = "Beklemede",
+    //            TotalPrice = service.Price
+    //        }
+
+    //    );
+    //    // Veritabanýna kaydet
+    //    await dbContext.SaveChangesAsync();
+    //}
+
+    if (!dbContext.Roles.Any())
     {
-        var service = dbContext.Services.FirstOrDefault(s => s.ServiceID == 1); // ID = 1 olan servisi al
-        dbContext.Appointments.AddRange( 
-            new Appointment {
-                AppointmentID = 1,
-                AppointmentServiceID = service.ServiceID,
-                AppointmentUserID = "11159931640",
-                AppointmentEmployeeID = "11111111111",
-                AppointmentDate = new DateTime(2024, 12, 15, 14, 30, 0), // Doðru format
-                Status = "Beklemede",
-                TotalPrice = service.Price
-            }
-            
+        dbContext.Roles.AddRange(
+            new Role { RoleID = 1, RoleName = "user" },
+            new Role { RoleID = 2, RoleName = "admin" }
         );
         // Veritabanýna kaydet
         await dbContext.SaveChangesAsync();
     }
 
+    // Kullanýcýlar
+    if (!dbContext.User.Any())
+    {
+        var adminRole = dbContext.Roles.FirstOrDefault(r => r.RoleName == "Admin");
+        var userRole = dbContext.Roles.FirstOrDefault(r => r.RoleName == "User");
+
+        dbContext.User.AddRange(
+            new User
+            {
+                UserID = "12345678901",
+                FullName = "Admin User",
+                Email = "admin@admin.com",
+                PhoneNumber = "1234567890",
+                Password = BCrypt.Net.BCrypt.HashPassword("Admin123"),
+                UserRoleID = adminRole.RoleID
+            },
+            new User
+            {
+                UserID = "11159931640",
+                FullName = "Humeyra Ozturk",
+                Email = "humeyra.ozturk2@ogr.sakarya.edu.tr",
+                PhoneNumber = "05534317361",
+                Password = BCrypt.Net.BCrypt.HashPassword("Humeyra123"),
+                UserRoleID = userRole.RoleID
+            }
+        );
+        dbContext.SaveChanges();
+    }
 }
 
 app.UseHttpsRedirection();

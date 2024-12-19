@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hairdresser.Models
 {
@@ -24,6 +26,12 @@ namespace Hairdresser.Models
         [Required(ErrorMessage = "Phone number is required")]
         [Phone(ErrorMessage = "Invalid phone number format")]
         public string PhoneNumber { get; set; }
+
+        // Kullanıcının ilişkili rolü
+        [Required(ErrorMessage = "Role selection is required.")]
+        [ForeignKey("Role")]
+        public int UserRoleID { get; set; }
+        public Role Role { get; set; }
 
         // Kullanıcının aldığı randevular
         public ICollection<Appointment>? Appointments { get; set; } // Nullable, isteğe bağlı

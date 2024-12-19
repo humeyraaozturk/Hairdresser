@@ -104,9 +104,7 @@
                                 <div class="modal-body">
                                     <!-- Appointment Form -->
                                     <form id="appointmentForm" method="post" action="/Home/SaveAppointment">
-                                        <!-- Gizli Alan ile UserID Gönderimi -->
-@*                                         <input type="hidden" name="UserID" value="@ViewBag.UserID" />
- *@                                        <div class="mb-3">
+                                        <div class="mb-3">
                                             <label for="serviceName" class="form-label">Service</label>
                                             <input type="text" class="form-control" id="serviceName" name="ServiceName" value="@ViewBag.SelectedService.Name" readonly>
                                         </div>

@@ -77,6 +77,21 @@ namespace Hairdresser.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("Hairdresser.Models.Role", b =>
+                {
+                    b.Property<int>("RoleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RoleID");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("Hairdresser.Models.Service", b =>
                 {
                     b.Property<int>("ServiceID")
@@ -121,7 +136,12 @@ namespace Hairdresser.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UserRoleID")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("UserID");
+
+                    b.HasIndex("UserRoleID");
 
                     b.ToTable("User");
                 });
@@ -163,9 +183,25 @@ namespace Hairdresser.Migrations
                     b.Navigation("Service");
                 });
 
+            modelBuilder.Entity("Hairdresser.Models.User", b =>
+                {
+                    b.HasOne("Hairdresser.Models.Role", "Role")
+                        .WithMany("User")
+                        .HasForeignKey("UserRoleID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("Hairdresser.Models.Employee", b =>
                 {
                     b.Navigation("Appointments");
+                });
+
+            modelBuilder.Entity("Hairdresser.Models.Role", b =>
+                {
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Hairdresser.Models.Service", b =>

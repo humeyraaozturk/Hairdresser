@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Hairdresser.Controllers
 {
@@ -21,13 +22,13 @@ namespace Hairdresser.Controllers
             // Veritabanındaki tüm kullanıcıları al
             var users = await _context.User.ToListAsync();
             return View(users);  // Kullanıcıları View'a gönder
-        }   
+        }
 
         public async Task<IActionResult> Appointments()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Giriş yapan kullanıcının ID'si
                                                                          // Veritabanından oturumdaki kullanıcıya ait randevuları getir
-            var userAppointments = await  _context.Appointments
+            var userAppointments = await _context.Appointments
                                     .Where(a => a.AppointmentUserID == userId)
                                     .Include(a => a.Service)
                                     .Include(a => a.Employee)
@@ -41,102 +42,213 @@ namespace Hairdresser.Controllers
             return RedirectToAction("Appointments");
         }
 
+        //[HttpGet]
+        //public IActionResult Register()
+        //{
+        //    // Rolleri veritabanından çek
+        //    var roles = _context.Roles.ToList();
+
+        //    // ViewBag ile roller bilgisini gönder
+        //    ViewBag.Roles = new SelectList(roles, "RoleID", "RoleName");
+
+        //    return View();
+        //}
+
+
+        //[HttpPost]
+        //public async Task<IActionResult> Register(User model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Debugging: Verileri konsola yazdırın
+        //        Console.WriteLine($"UserID: {model.UserID}");
+        //        Console.WriteLine($"FullName: {model.FullName}");
+        //        Console.WriteLine($"Email: {model.Email}");
+        //        Console.WriteLine($"PhoneNumber: {model.PhoneNumber}");
+        //        Console.WriteLine($"UserRoleID: {model.UserRoleID}");
+
+        //        // Kullanıcı emaili kontrolü
+        //        if (await _context.User.AnyAsync(u => u.Email == model.Email))
+        //        {
+        //            ModelState.AddModelError("Email", "This email is already registered.");
+        //            return View(model);
+        //        }
+
+        //        try
+        //        {
+        //            // Debugging: Verileri konsola yazdırın
+        //            Console.WriteLine($"UserID: {model.UserID}");
+        //            Console.WriteLine($"FullName: {model.FullName}");
+        //            Console.WriteLine($"Email: {model.Email}");
+        //            Console.WriteLine($"PhoneNumber: {model.PhoneNumber}");
+        //            Console.WriteLine($"UserRoleID: {model.UserRoleID}");
+
+        //            var role = await _context.Roles.FirstOrDefaultAsync(r => r.RoleID == model.UserRoleID);
+        //            if (role != null)
+        //            {
+        //                model.Role = role; // Role'ü model'e ekleyin
+        //            }
+
+        //            // Şifreyi hashle
+        //            model.Password = BCrypt.Net.BCrypt.HashPassword(model.Password);
+
+        //            // Kullanıcıyı veritabanına ekle
+        //            _context.User.Add(model);
+        //            await _context.SaveChangesAsync();
+
+        //            TempData["SuccessMessage"] = "Registration successful!";
+        //            return RedirectToAction("Login", "Profile");
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Console.Error.WriteLine($"Registration Error: {ex.Message}");
+        //            Console.Error.WriteLine($"Stack Trace: {ex.StackTrace}");
+        //            ModelState.AddModelError("", "An error occurred while processing your request.");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+        //        {
+        //            Console.WriteLine($"Model Error: {error.ErrorMessage}");
+        //        }
+        //    }
+
+        //    // Rolleri yeniden yükle
+        //    var roles = await _context.Roles.ToListAsync();
+        //    ViewBag.Roles = new SelectList(roles, "RoleID", "RoleName");
+        //    return View(model);
+        //}
+        [HttpGet]
         public IActionResult Register()
         {
+            // Roller ViewBag'e aktarılıyor
+            var roles = _context.Roles.ToList();
+            // Eğer "user" rolü veritabanında yoksa ekle
+            if (!roles.Any(r => r.RoleName == "user"))
+            {
+                roles.Add(new Role { RoleID = 1, RoleName = "user" });  // Varsayılan "user" rolü ekleyin
+            }
+            ViewBag.Roles = roles;
+
             return View();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(User model)
+        public async Task<IActionResult> Register(string UserID, string FullName, string Email, string PhoneNumber, string Password, int UserRoleID)
         {
             if (ModelState.IsValid)
             {
-                if (await _context.User.AnyAsync(u => u.Email == model.Email))
-                {
-                    ModelState.AddModelError("Email", "This email is already registered.");
-                    return View(model);
-                }
-
                 try
                 {
-                    model.Password = BCrypt.Net.BCrypt.HashPassword(model.Password);
-                    _context.User.Add(model);
+                    // Kullanıcı emaili kontrol et, eğer zaten varsa hata mesajı göster
+                    var existingUser = await _context.User.FirstOrDefaultAsync(u => u.Email == Email);
+                    if (existingUser != null)
+                    {
+                        ModelState.AddModelError("Email", "This email is already registered.");
+                        return View();
+                    }
+
+                    // Şifreyi hashle
+                    var hashedPassword = BCrypt.Net.BCrypt.HashPassword(Password);
+
+                    // Yeni kullanıcı oluştur
+                    var user = new User
+                    {
+                        UserID = UserID,
+                        FullName = FullName,
+                        Email = Email,
+                        PhoneNumber = PhoneNumber,
+                        Password = hashedPassword,
+                        UserRoleID = UserRoleID // Kullanıcının seçtiği rol
+                    };
+
+                    // Kullanıcıyı veritabanına ekle
+                    _context.User.Add(user);
                     await _context.SaveChangesAsync();
 
+                    // Başarılı mesajı göster
+                    TempData["SuccessMessage"] = "Registration successful!";
                     return RedirectToAction("Index", "Home");
                 }
                 catch (Exception ex)
                 {
-                    // Hata loglama işlemi
-                    Console.Error.WriteLine($"Registration Error: {ex.Message}");
-                    ModelState.AddModelError("", "An error occurred while processing your request.");
+                    // Hata mesajı ekle
+                    ModelState.AddModelError("", $"An error occurred: {ex.Message}");
                 }
             }
             else
             {
+                // Model geçerli değilse hata mesajlarını yazdır
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
                     Console.WriteLine($"Model Error: {error.ErrorMessage}");
                 }
-                return View(model);
             }
-            // Eğer ModelState geçerli değilse, form tekrar gösterilecek
-            return View(model);
 
+            // Rol listesini tekrar ViewBag'e aktar ve formu yeniden göster
+            var roles = await _context.Roles.ToListAsync();
+            ViewBag.Roles = roles;
+            return View();
         }
+
+
+
 
         public IActionResult Login()
         {
             return View();
         }
-
+       
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)
         {
-            // E-posta ile kullanıcıyı veritabanında arayın
-            var user = await _context.User.FirstOrDefaultAsync(u => u.Email == email);
-
-            if (user != null) // Kullanıcı bulunduysa
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {
-                if (BCrypt.Net.BCrypt.Verify(password, user.Password)) // Şifre doğru mu?
-                {
-
-                    // Kullanıcı giriş bilgileri için bir claim listesi oluştur
-                    var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, user.FullName),
-                        new Claim(ClaimTypes.Email, user.Email),
-                        new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString())
-                    };
-
-                    // ClaimsPrincipal oluştur
-                    var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
-                    var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-
-                    // Oturumu başlat
-                    await HttpContext.SignInAsync("CookieAuth", claimsPrincipal);
-
-                    HttpContext.Session.SetString("UserID", user.UserID.ToString());
-
-                    // Şifre doğru, Home Index'e yönlendir
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    // Şifre yanlış, hata mesajı ekle
-                    ModelState.AddModelError("", "Incorrect password. Please try again.");
-                }
+                ModelState.AddModelError("", "Email and password are required.");
+                return View();
             }
-            else
+
+            // Kullanıcıyı veritabanında e-posta ile arayın
+            var user = await _context.User
+                                     .Include(u => u.Role) // Rol bilgisiyle birlikte kullanıcıyı al
+                                     .FirstOrDefaultAsync(u => u.Email == email);
+
+            if (user == null)
             {
-                // Kullanıcı bulunamadı, hata mesajı ekle
+                // Kullanıcı bulunamadı
                 ModelState.AddModelError("", "No user found with the given email.");
+                return View();
             }
 
-            // Hata durumunda Login görünümünü yeniden göster
-            return View();
+            // Şifre doğrulaması
+            if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
+            {
+                ModelState.AddModelError("", "Incorrect password. Please try again.");
+                return View();
+            }
 
+            // Kullanıcı giriş bilgileri için bir claim listesi oluştur
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.FullName),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString()),
+                new Claim(ClaimTypes.Role, user.Role.RoleName) // Rol ismini kullan
+            };
+
+            // ClaimsPrincipal oluştur
+            var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+            // Oturumu başlat
+            await HttpContext.SignInAsync("CookieAuth", claimsPrincipal);
+
+            // Kullanıcı ID'sini session'a ekleyin (isteğe bağlı)
+            HttpContext.Session.SetString("UserID", user.UserID.ToString());       
+
+            // Varsayılan yönlendirme
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -145,7 +257,6 @@ namespace Hairdresser.Controllers
             await HttpContext.SignOutAsync("CookieAuth");
             return RedirectToAction("Index", "Home");
         }
-
 
         // Profil sayfasını görüntüler
         [HttpGet]

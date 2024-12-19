@@ -23,37 +23,48 @@
 
                 <h2>@ViewData["Title"]</h2>
 
-                <form method="post">    
+                <form method="post" action="Register">
                     <div class="form-group">
-                        <label asp-for="UserID" class="control-label">ID Number</label>
-                        <input asp-for="UserID" class="form-control" />
-                        <span asp-validation-for="UserID" class="text-danger"></span>
+                        <label for="UserID" class="control-label">ID Number</label>
+                        <input id="UserID" name="UserID" class="form-control" />
+                        <span class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="FullName" class="control-label">Full Name</label>
-                        <input asp-for="FullName" class="form-control" />
-                        <span asp-validation-for="FullName" class="text-danger"></span>
+                        <label for="FullName" class="control-label">Full Name</label>
+                        <input id="FullName" name="FullName" class="form-control" />
+                        <span class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Email" class="control-label">E-Mail</label>
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <label for="Email" class="control-label">E-Mail</label>
+                        <input id="Email" name="Email" class="form-control" />
+                        <span class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="PhoneNumber" class="control-label">Phone Number</label>
-                        <input asp-for="PhoneNumber" class="form-control" />
-                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        <label for="PhoneNumber" class="control-label">Phone Number</label>
+                        <input id="PhoneNumber" name="PhoneNumber" class="form-control" />
+                        <span class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Password" class="control-label">Password</label>
-                        <input asp-for="Password" type="password" class="form-control" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <label for="Password" class="control-label">Password</label>
+                        <input id="Password" name="Password" type="password" class="form-control" />
+                        <span class="text-danger"></span>
                     </div>
-                    <button type="submit" class=" btn-login">Register</button>
+                    <div class="form-group">
+                        <label for="UserRoleID" class="control-label">Role</label>
+                        <select id="UserRoleID" name="UserRoleID" class="form-control">
+                            <option disabled selected value="">Select a Role</option>
+                            @foreach (var role in ViewBag.Roles as List<Role>)
+                            {
+                                <option value="@role.RoleID">@role.RoleName</option>
+                            }
+                        </select>
+                        <span class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn-login">Register</button>
                 </form>
-                @section Scripts {
-                    <partial name="_ValidationScriptsPartial" />
-                }
+
+                
                 @{
                     if (TempData["SuccessMessage"] != null)
                     {
@@ -65,6 +76,7 @@
                         foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
                         {
                             <div class="alert alert-danger">@error.ErrorMessage</div>
+                            Console.WriteLine($"Model Error: {error.ErrorMessage}");
                         }
                     }
                 }

@@ -12,6 +12,7 @@ namespace Hairdresser.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -53,7 +54,13 @@ namespace Hairdresser.Data
                 .HasForeignKey(a => a.AppointmentUserID)
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false); // Appointments alanını isteğe bağlı yapar
-            
+
+            // User -> Role ilişkisi (1:N)
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Role)
+                .WithMany(r => r.Users)
+                .HasForeignKey(u => u.UserRoleID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
