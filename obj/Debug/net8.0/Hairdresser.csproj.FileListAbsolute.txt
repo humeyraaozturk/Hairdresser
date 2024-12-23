@@ -355,3 +355,4 @@ D:\workspace\Term_5\Hairdresser\obj\Debug\net8.0\refint\Hairdresser.dll
 D:\workspace\Term_5\Hairdresser\obj\Debug\net8.0\Hairdresser.pdb
 D:\workspace\Term_5\Hairdresser\obj\Debug\net8.0\Hairdresser.genruntimeconfig.cache
 D:\workspace\Term_5\Hairdresser\obj\Debug\net8.0\ref\Hairdresser.dll
+D:\workspace\Term_5\Hairdresser\bin\Debug\net8.0\Newtonsoft.Json.dll

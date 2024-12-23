@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Hairdresser.Controllers
 {
@@ -16,7 +15,6 @@ namespace Hairdresser.Controllers
         {
             _context = context;
         }
-
         public async Task<IActionResult> Index()
         {
             // Veritabanındaki tüm kullanıcıları al
@@ -42,83 +40,6 @@ namespace Hairdresser.Controllers
             return RedirectToAction("Appointments");
         }
 
-        //[HttpGet]
-        //public IActionResult Register()
-        //{
-        //    // Rolleri veritabanından çek
-        //    var roles = _context.Roles.ToList();
-
-        //    // ViewBag ile roller bilgisini gönder
-        //    ViewBag.Roles = new SelectList(roles, "RoleID", "RoleName");
-
-        //    return View();
-        //}
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> Register(User model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        // Debugging: Verileri konsola yazdırın
-        //        Console.WriteLine($"UserID: {model.UserID}");
-        //        Console.WriteLine($"FullName: {model.FullName}");
-        //        Console.WriteLine($"Email: {model.Email}");
-        //        Console.WriteLine($"PhoneNumber: {model.PhoneNumber}");
-        //        Console.WriteLine($"UserRoleID: {model.UserRoleID}");
-
-        //        // Kullanıcı emaili kontrolü
-        //        if (await _context.User.AnyAsync(u => u.Email == model.Email))
-        //        {
-        //            ModelState.AddModelError("Email", "This email is already registered.");
-        //            return View(model);
-        //        }
-
-        //        try
-        //        {
-        //            // Debugging: Verileri konsola yazdırın
-        //            Console.WriteLine($"UserID: {model.UserID}");
-        //            Console.WriteLine($"FullName: {model.FullName}");
-        //            Console.WriteLine($"Email: {model.Email}");
-        //            Console.WriteLine($"PhoneNumber: {model.PhoneNumber}");
-        //            Console.WriteLine($"UserRoleID: {model.UserRoleID}");
-
-        //            var role = await _context.Roles.FirstOrDefaultAsync(r => r.RoleID == model.UserRoleID);
-        //            if (role != null)
-        //            {
-        //                model.Role = role; // Role'ü model'e ekleyin
-        //            }
-
-        //            // Şifreyi hashle
-        //            model.Password = BCrypt.Net.BCrypt.HashPassword(model.Password);
-
-        //            // Kullanıcıyı veritabanına ekle
-        //            _context.User.Add(model);
-        //            await _context.SaveChangesAsync();
-
-        //            TempData["SuccessMessage"] = "Registration successful!";
-        //            return RedirectToAction("Login", "Profile");
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Console.Error.WriteLine($"Registration Error: {ex.Message}");
-        //            Console.Error.WriteLine($"Stack Trace: {ex.StackTrace}");
-        //            ModelState.AddModelError("", "An error occurred while processing your request.");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-        //        {
-        //            Console.WriteLine($"Model Error: {error.ErrorMessage}");
-        //        }
-        //    }
-
-        //    // Rolleri yeniden yükle
-        //    var roles = await _context.Roles.ToListAsync();
-        //    ViewBag.Roles = new SelectList(roles, "RoleID", "RoleName");
-        //    return View(model);
-        //}
         [HttpGet]
         public IActionResult Register()
         {
@@ -191,9 +112,6 @@ namespace Hairdresser.Controllers
             ViewBag.Roles = roles;
             return View();
         }
-
-
-
 
         public IActionResult Login()
         {

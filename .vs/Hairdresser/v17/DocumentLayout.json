@@ -3,24 +3,20 @@
   "WorkspaceRootPath": "D:\\workspace\\Term_5\\Hairdresser\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|d:\\workspace\\term_5\\hairdresser\\views\\home\\services.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|solutionrelative:views\\home\\services.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|d:\\workspace\\term_5\\hairdresser\\views\\user\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|solutionrelative:views\\user\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|d:\\workspace\\term_5\\hairdresser\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|d:\\workspace\\term_5\\hairdresser\\api\\rapidapiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|solutionrelative:api\\rapidapiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|d:\\workspace\\term_5\\hairdresser\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|d:\\workspace\\term_5\\hairdresser\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|d:\\workspace\\term_5\\hairdresser\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|d:\\workspace\\term_5\\hairdresser\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A292E6DF-3B67-4D7C-84EB-6EF50025C8D9}|Hairdresser.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -29,7 +25,7 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 54,
+          "DockedWidth": 40,
           "SelectedChildIndex": 11,
           "Children": [
             {
@@ -75,69 +71,53 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "D:\\workspace\\Term_5\\Hairdresser\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "D:\\workspace\\Term_5\\Hairdresser\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAAG0AAAAAAAAAAAAgwIIAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-17T23:12:20.841Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Register.cshtml",
-              "DocumentMoniker": "D:\\workspace\\Term_5\\Hairdresser\\Views\\User\\Register.cshtml",
-              "RelativeDocumentMoniker": "Views\\User\\Register.cshtml",
-              "ToolTip": "D:\\workspace\\Term_5\\Hairdresser\\Views\\User\\Register.cshtml",
-              "RelativeToolTip": "Views\\User\\Register.cshtml",
-              "ViewState": "AgIAACYAAAAAAAAAAAAlwDcAAABNAAAAAAAAAA==",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\workspace\\Term_5\\Hairdresser\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\workspace\\Term_5\\Hairdresser\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAB8CAAAAAAAAAAAkwDICAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-19T07:37:30.918Z",
+              "WhenOpened": "2024-12-23T18:32:58.965Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "User.cs",
-              "DocumentMoniker": "D:\\workspace\\Term_5\\Hairdresser\\Models\\User.cs",
-              "RelativeDocumentMoniker": "Models\\User.cs",
-              "ToolTip": "D:\\workspace\\Term_5\\Hairdresser\\Models\\User.cs",
-              "RelativeToolTip": "Models\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "RapidAPIService.cs",
+              "DocumentMoniker": "D:\\workspace\\Term_5\\Hairdresser\\Api\\RapidAPIService.cs",
+              "RelativeDocumentMoniker": "Api\\RapidAPIService.cs",
+              "ToolTip": "D:\\workspace\\Term_5\\Hairdresser\\Api\\RapidAPIService.cs",
+              "RelativeToolTip": "Api\\RapidAPIService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-19T09:12:10.312Z"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 56,
-          "SelectedChildIndex": 1,
-          "Children": [
+              "WhenOpened": "2024-12-23T15:33:45.428Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\workspace\\Term_5\\Hairdresser\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\workspace\\Term_5\\Hairdresser\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-23T14:49:42.804Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "HomeController.cs",
               "DocumentMoniker": "D:\\workspace\\Term_5\\Hairdresser\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
               "ToolTip": "D:\\workspace\\Term_5\\Hairdresser\\Controllers\\HomeController.cs",
               "RelativeToolTip": "Controllers\\HomeController.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAowDcAAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAOMAAAAAAAAAAAAAwOIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-19T09:57:20.78Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Services.cshtml",
-              "DocumentMoniker": "D:\\workspace\\Term_5\\Hairdresser\\Views\\Home\\Services.cshtml",
-              "RelativeDocumentMoniker": "Views\\Home\\Services.cshtml",
-              "ToolTip": "D:\\workspace\\Term_5\\Hairdresser\\Views\\Home\\Services.cshtml",
-              "RelativeToolTip": "Views\\Home\\Services.cshtml",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAAAFsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-19T09:56:46.902Z",
+              "WhenOpened": "2024-12-23T14:37:00.653Z",
               "EditorCaption": ""
             }
           ]

@@ -21,11 +21,11 @@
                         <div class="services-list">
                             @foreach (var service in ViewBag.Services)
                             {
-                                <a href="@Url.Action("Services", "Home", new { selectedServiceId = service.ServiceID })"
-                                   class="@(service.ServiceID == ViewBag.SelectedService.ServiceID ? "active" : "")">
-                                    <i class="bi bi-arrow-right-circle"></i>
-                                    <span>@service.Name</span>
-                                </a>
+                                    <a href="@Url.Action("Services", "Home", new { selectedServiceId = service.ServiceID })"
+                                       class="@(service.ServiceID == ViewBag.SelectedService.ServiceID ? "active" : "")">
+                                        <i class="bi bi-arrow-right-circle"></i>
+                                        <span>@service.Name</span>
+                                    </a>
                             }
                         </div>
                     </div><!-- End Services List -->
@@ -37,57 +37,57 @@
 
                     @if (ViewBag.SelectedService.ServiceID == 1) // Hair Care
                     {
-                        <p>Hair Care: Professional care for your hair, ensuring it stays healthy and shiny.</p>
-                        <ul>
-                            <li><i class="bi bi-check-circle"></i> Scalp massage for healthy growth</li>
-                            <li><i class="bi bi-check-circle"></i> Deep conditioning treatments</li>
-                            <li><i class="bi bi-check-circle"></i> Customized care plans</li>
-                        </ul>
+                            <p>Hair Care: Professional care for your hair, ensuring it stays healthy and shiny.</p>
+                            <ul>
+                                <li><i class="bi bi-check-circle"></i> Scalp massage for healthy growth</li>
+                                <li><i class="bi bi-check-circle"></i> Deep conditioning treatments</li>
+                                <li><i class="bi bi-check-circle"></i> Customized care plans</li>
+                            </ul>
                     }
                     else if (ViewBag.SelectedService.ServiceID == 2) // Haircut
                     {
-                        <p>Haircut: Stylish and trendy cuts tailored to your preferences.</p>
-                        <ul>
-                            <li><i class="bi bi-check-circle"></i> Expert stylists</li>
-                            <li><i class="bi bi-check-circle"></i> Personalized consultations</li>
-                            <li><i class="bi bi-check-circle"></i> Modern tools and techniques</li>
-                        </ul>
+                            <p>Haircut: Stylish and trendy cuts tailored to your preferences.</p>
+                            <ul>
+                                <li><i class="bi bi-check-circle"></i> Expert stylists</li>
+                                <li><i class="bi bi-check-circle"></i> Personalized consultations</li>
+                                <li><i class="bi bi-check-circle"></i> Modern tools and techniques</li>
+                            </ul>
                     }
                     else if (ViewBag.SelectedService.ServiceID == 3) // Hair Coloring
                     {
-                        <p>Hair Coloring: Vibrant and long-lasting colors to match your style.</p>
-                        <ul>
-                            <li><i class="bi bi-check-circle"></i> Professional-grade dyes</li>
-                            <li><i class="bi bi-check-circle"></i> Custom shades available</li>
-                            <li><i class="bi bi-check-circle"></i> Gentle formulas for healthy hair</li>
-                        </ul>
+                            <p>Hair Coloring: Vibrant and long-lasting colors to match your style.</p>
+                            <ul>
+                                <li><i class="bi bi-check-circle"></i> Professional-grade dyes</li>
+                                <li><i class="bi bi-check-circle"></i> Custom shades available</li>
+                                <li><i class="bi bi-check-circle"></i> Gentle formulas for healthy hair</li>
+                            </ul>
                     }
                     else if (ViewBag.SelectedService.ServiceID == 4) // Professional Makeup
                     {
-                        <p>Professional Makeup: Flawless looks for every occasion.</p>
-                        <ul>
-                            <li><i class="bi bi-check-circle"></i> Bridal and party makeup</li>
-                            <li><i class="bi bi-check-circle"></i> Natural and glam styles</li>
-                            <li><i class="bi bi-check-circle"></i> High-quality products</li>
-                        </ul>
+                            <p>Professional Makeup: Flawless looks for every occasion.</p>
+                            <ul>
+                                <li><i class="bi bi-check-circle"></i> Bridal and party makeup</li>
+                                <li><i class="bi bi-check-circle"></i> Natural and glam styles</li>
+                                <li><i class="bi bi-check-circle"></i> High-quality products</li>
+                            </ul>
                     }
                     else if (ViewBag.SelectedService.ServiceID == 5) // Nail Art
                     {
-                        <p>Nail Art: Creative designs for stunning nails.</p>
-                        <ul>
-                            <li><i class="bi bi-check-circle"></i> Wide range of designs</li>
-                            <li><i class="bi bi-check-circle"></i> High-quality nail polishes</li>
-                            <li><i class="bi bi-check-circle"></i> Professional application</li>
-                        </ul>
+                            <p>Nail Art: Creative designs for stunning nails.</p>
+                            <ul>
+                                <li><i class="bi bi-check-circle"></i> Wide range of designs</li>
+                                <li><i class="bi bi-check-circle"></i> High-quality nail polishes</li>
+                                <li><i class="bi bi-check-circle"></i> Professional application</li>
+                            </ul>
                     }
                     else if (ViewBag.SelectedService.ServiceID == 6) // Skin Care
                     {
-                        <p>Skin Care: Gentle and effective treatments for radiant skin.</p>
-                        <ul>
-                            <li><i class="bi bi-check-circle"></i> Facials and peels</li>
-                            <li><i class="bi bi-check-circle"></i> Hydrating treatments</li>
-                            <li><i class="bi bi-check-circle"></i> Anti-aging solutions</li>
-                        </ul>
+                            <p>Skin Care: Gentle and effective treatments for radiant skin.</p>
+                            <ul>
+                                <li><i class="bi bi-check-circle"></i> Facials and peels</li>
+                                <li><i class="bi bi-check-circle"></i> Hydrating treatments</li>
+                                <li><i class="bi bi-check-circle"></i> Anti-aging solutions</li>
+                            </ul>
                     }
 
                     <!-- Take An Appointment Button -->
@@ -102,30 +102,79 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
+                                    <!-- Hata mesajı alanı -->
+                                    @if (ViewData["ErrorMessage"] != null)
+                                    {
+                                            <div class="alert alert-danger">
+                                            @ViewData["ErrorMessage"]
+                                            </div>
+                                    }
+
                                     <!-- Appointment Form -->
                                     <form id="appointmentForm" method="post" action="/Home/SaveAppointment">
                                         <div class="mb-3">
                                             <label for="serviceName" class="form-label">Service</label>
                                             <input type="text" class="form-control" id="serviceName" name="ServiceName" value="@ViewBag.SelectedService.Name" readonly>
                                         </div>
+
                                         <div class="mb-3">
-                                            <label for="employeeDropdown" class="form-label">Select Employee</label>
-                                            <select class="form-select" id="employeeDropdown" name="EmployeeId" required>
+                                            <label for="selectedDate" class="form-label">Select Date</label>
+                                            <input type="date" class="form-control" id="selectedDate" name="selectedDate"
+                                                   value="@ViewBag.SelectedDate?.ToString("yyyy-MM-dd")" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="selectedEmployee" class="form-label">Select Employee</label>
+                                            <select class="form-select" id="EmployeeId" name="EmployeeId" required>
                                                 <option value="">Select an Employee</option>
                                                 @foreach (var employee in ViewBag.Employees)
                                                 {
-                                                    <option value="@employee.EmployeeID">@employee.FullName</option>
+                                                        <option value="@employee.EmployeeID">@employee.FullName</option>
                                                 }
                                             </select>
                                         </div>
+
                                         <div class="mb-3">
-                                            <label for="appointmentDate" class="form-label">Select Date and Time</label>
-                                            <input type="datetime-local" class="form-control" id="appointmentDate" name="AppointmentDate" required>
+                                            <label for="availableHours" class="form-label">Available Hours</label>
+                                            <select class="form-select" id="availableHours" name="selectedHour" required>
+                                                <option value="">Select an Hour</option>
+                                                <!-- Dinamik saatler burada güncellenecek -->
+                                            </select>
                                         </div>
+
+                                        <script>
+                                            document.getElementById('EmployeeId').addEventListener('change', function () {
+                                                var employeeId = this.value;
+                                                var selectedDate = document.getElementById('selectedDate').value;
+
+                                                if (employeeId && selectedDate) {
+                                                    fetch(`/Home/GetEmployeeAvailableHours?employeeId=${employeeId}&selectedDate=${selectedDate}`)
+                                                        .then(response => response.json())
+                                                        .then(data => {
+                                                            var hourDropdown = document.getElementById('availableHours');
+                                                            hourDropdown.innerHTML = ''; // Mevcut saatleri temizle
+
+                                                            if (data.success) {
+                                                                // Yeni saatleri ekle
+                                                                data.availableHours.forEach(hour => {
+                                                                    var option = document.createElement('option');
+                                                                    option.value = hour;
+                                                                    option.textContent = hour;
+                                                                    hourDropdown.appendChild(option);
+                                                                });
+                                                            } else {
+                                                                alert(data.message || 'Failed to load available hours.');
+                                                            }
+                                                        })
+                                                        .catch(error => console.error('Error fetching available hours:', error));
+                                                }
+                                            });
+                                        </script>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                             <button type="submit" class="btn btn-primary">Confirm Appointment</button>
                                         </div>
+
                                     </form>
                                 </div>
                             </div>

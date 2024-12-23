@@ -4,6 +4,23 @@
 @{
 }
 @* Admin Panel - Randevu Yönetimi *@
+
+@model IEnumerable<Appointment>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <main class="main">
     <section id="admin-panel" class="admin-panel section">
         <div class="container">
@@ -31,105 +48,136 @@
             <!-- Tabs Content -->
             <div class="tab-content" id="adminTabsContent">
                 <!-- Çalışan Ekle -->
-                <div class="tab-pane fade show active" id="add-employee" role="tabpanel" aria-labelledby="add-employee-tab">
-                    <h3>Çalışan Ekle</h3>
-                    <form method="post" action="/Admin/AddEmployee">
-                        @* <div class="mb-3">
-                        <label for="employeeName" class="form-label">Çalışan Adı</label>
-                        <input type="text" class="form-control" id="employeeName" name="Name" required>
-                        </div>
+                <div class="tab-pane fade" id="add-employee" role="tabpanel" aria-labelledby="add-employee-tab">
+                    <!-- Yeni Çalışan Ekleme Formu -->
+                    <form method="post" action="@Url.Action("AddEmployee", "Admin")">
                         <div class="mb-3">
-                        <label for="employeePosition" class="form-label">Pozisyon</label>
-                        <input type="text" class="form-control" id="employeePosition" name="Position" required>
-                        </div> *@
-                        <button type="submit" class="btn btn-primary">Ekle</button>
+                            <label for="employeeId" class="form-label">Employee ID</label>
+                            <input type="text" class="form-control" id="employeeId" name="employeeId" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Employee Full Name</label>
+                            <input type="text" class="form-control" id="fullName" name="fullName" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="employeeServiceID" class="form-label">Expertise</label>
+                            <select class="form-select" id="employeeServiceID" name="employeeServiceID" required>
+                                <option value="">Bir hizmet seçin</option>
+                                @foreach (var service in ViewBag.Services as List<Hairdresser.Models.Service>)
+                                {
+                                    <option value="@service.ServiceID">@service.Name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Shift</label><br />
+                            @foreach (var timeSlot in ViewBag.AvailableHours)
+                            {
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="availableHours" value="@timeSlot" />
+                                    <label class="form-check-label">@timeSlot</label>
+                                </div>
+                            }
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Add</button>
                     </form>
                 </div>
 
                 <!-- Çalışan Sil -->
                 <div class="tab-pane fade" id="remove-employee" role="tabpanel" aria-labelledby="remove-employee-tab">
-                    <h3>Çalışan Sil</h3>
                     <form method="post" action="/Admin/RemoveEmployee">
-                        @* <div class="mb-3">
-                        <label for="employeeSelect" class="form-label">Çalışan Seç</label>
-                        <select class="form-select" id="employeeSelect" name="EmployeeId" required>
-                        <option value="">Çalışan Seç</option>
-                        @if (ViewBag.Employees != null && ViewBag.Employees.Count > 0)
-                        {
-                        @foreach (var employee in ViewBag.Employees)
-                        {
-                        <option value="@employee.EmployeeID">@employee.FullName</option>
-                        }
-                        }
-                        else
-                        {
-                        <p>Çalışan bulunamadı.</p>
-                        }
-
-                        </select>
-                        </div> *@
-                        <button type="submit" class="btn btn-danger">Sil</button>
+                        <div class="mb-3">
+                            <label for="employeeSelect" class="form-label">Choose an Employee</label>
+                            <select class="form-select" id="employeeSelect" name="EmployeeId" required>
+                                <option value="">Çalışan Seç</option>
+                                @foreach (var employee in ViewBag.Employees)
+                                {
+                                    <option value="@employee.EmployeeID">@employee.FullName</option>
+                                }
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>
 
                 <!-- Randevu Durumu -->
                 <div class="tab-pane fade" id="appointment-status" role="tabpanel" aria-labelledby="appointment-status-tab">
-                    <h3>Randevu Durumu</h3>
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Kullanıcı</th>
-                                <th>Hizmet</th>
-                                <th>Tarih</th>
-                                <th>Durum</th>
-                                <th>İşlem</th>
+                                <th>User</th>
+                                <th>Service</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Process</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @* @if (ViewBag.Appointments != null && ((List<Appointment>)ViewBag.Appointments).Count > 0)
+                            @if (Model != null && Model.Any())
                             {
-                            @if (ViewBag.Appointments.Count > 0)
-                            {
-                            @foreach (var appointment in ViewBag.Appointments)
-                            {
-                            <tr>
-                            <td>@appointment.AppointmentID</td>
-                            <td>@appointment.User.FullName</td>
-                            <td>@appointment.Service.Name</td>
-                            <td>@appointment.Date</td>
-                            <td>@appointment.Status</td>
-                            <td>
-                            <form method="post" action="/Admin/UpdateAppointmentStatus">
-                            <input type="hidden" name="AppointmentId" value="@appointment.AppointmentID" />
-                            <button name="Status" value="Onaylandı" class="btn btn-success btn-sm">Onayla</button>
-                            <button name="Status" value="İptal Edildi" class="btn btn-danger btn-sm">İptal Et</button>
-                            </form>
-                            </td>
-                            </tr>
-                            }
-                            }
-                            else
-                            {
-                            <p>Randevu bulunamadı1.</p>
-                            }
-
+                                int index = 1;
+                                foreach (var appointment in Model)
+                                {
+                                    <tr>
+                                        <td>@index</td>
+                                        <td>@appointment.User.FullName</td>
+                                        <td>@appointment.Service.Name</td>
+                                        <td>@appointment.AppointmentDate.ToString("yyyy-MM-dd HH:mm")</td>
+                                        <td>@appointment.Status</td>
+                                        <td>
+                                            <form method="post" action="/Admin/UpdateAppointmentStatus">
+                                                <input type="hidden" name="appointmentId" value="@appointment.AppointmentID" />
+                                                <button name="newStatus" value="Approved" class="btn btn-success">Approve</button>
+                                                <button name="newStatus" value="Cancelled" class="btn btn-danger">Cancel</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    index++;
+                                }
                             }
                             else
                             {
-                            <p>Randevu bulunamadı2.</p>
-                            }       *@
+                                <tr>
+                                    <td colspan="6" class="text-center">There are no pending appointments.</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
 
                 <!-- Çalışan Verimlilik -->
                 <div class="tab-pane fade" id="employee-performance" role="tabpanel" aria-labelledby="employee-performance-tab">
-                    <h3>Çalışan Verimlilik</h3>
                     <p>Burada çalışanların verimliliği analiz edilecektir.</p>
-                    <!-- Verimlilik metriklerini burada listeleyin -->
                 </div>
             </div>
         </div>
     </section>
 </main>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // En son aktif sekmeyi kontrol et
+        const lastActiveTab = localStorage.getItem("activeTab");
+
+        if (lastActiveTab) {
+            const tabTrigger = document.querySelector(`[data-bs-target="${lastActiveTab}"]`);
+            if (tabTrigger) {
+                const tab = new bootstrap.Tab(tabTrigger);
+                tab.show();
+            }
+        }
+
+        // Sekme değiştiğinde yeni aktif sekmeyi kaydet
+        const tabElements = document.querySelectorAll('#adminTabs button[data-bs-toggle="tab"]');
+        tabElements.forEach(tab => {
+            tab.addEventListener("shown.bs.tab", function (event) {
+                localStorage.setItem("activeTab", event.target.getAttribute("data-bs-target"));
+            });
+        });
+    });
+</script>
+
