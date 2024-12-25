@@ -1,3 +1,4 @@
+using Hairdresser.Controllers;
 using Hairdresser.Data;
 using Hairdresser.Models;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +32,7 @@ builder.Services.AddSession(options =>
 });
 
 // RapidAPIService'i DI'ye ekleyin
-builder.Services.AddHttpClient<RapidAPIService>();
+builder.Services.AddHttpClient<HomeController>();
 
 var app = builder.Build();
 

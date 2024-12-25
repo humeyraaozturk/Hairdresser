@@ -6,17 +6,22 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Threading.Tasks;
+using System.Net.Http;
+using System.Text;
+using Newtonsoft.Json;
+using System.Text.Json.Nodes;
 
 namespace Hairdresser.Controllers
 {
     public class HomeController : Controller
     {
         private readonly AppDbContext _context; // Veritabaný baðlamý
-        private readonly RapidAPIService _rapidAPIService;
-        public HomeController(AppDbContext context, RapidAPIService rapidAPIService)
+        private readonly HttpClient _httpClient;
+        private const string ApiKey = "YOUR_API_KEY";
+        public HomeController(AppDbContext context, HttpClient HttpClient)
         {
             _context = context;
-            _rapidAPIService = rapidAPIService;
+            _httpClient = HttpClient;
         }
 
         public IActionResult Index()
@@ -105,31 +110,13 @@ namespace Hairdresser.Controllers
 
                     // Müsait saat kontrolü
                     var availableHours = employee.AvailableHours.Split(',').Select(h => h.Trim()).ToList();
-                    //if (!availableHours.Contains(selectedHour))
-                    //{
-                    //    TempData["ErrorMessage"] = "Selected time is not available!";
-                    //    return RedirectToAction("Services");
-                    //}
-
+                    
                     // Tarih ve saati birleþtirerek randevu tarihi oluþtur
                     DateTime appointmentDateTime = selectedDate.Date.Add(TimeSpan.Parse(selectedHour));
 
-                    //// Çakýþma kontrolü
-                    //var existingAppointment = _context.Appointments.FirstOrDefault(a =>
-                    //        a.AppointmentEmployeeID == employee.EmployeeID &&
-                    //        a.AppointmentDate.Date == appointmentDateTime.Date && // Tarih karþýlaþtýrmasý
-                    //        a.AppointmentDate.TimeOfDay == appointmentDateTime.TimeOfDay && // Saat karþýlaþtýrmasý
-                    //        a.AppointmentUserID == userId); // Ayný kullanýcý
-
-                    //if (existingAppointment != null)
-                    //{
-                    //    TempData["ErrorMessage"] = "The selected time is already booked!";
-                    //    return RedirectToAction("Services");
-                    //}
-
                     // Kullanýcý Randevusuyla Çakýþma Kontrolü
-                    var existingAppointmentForUser = _context.Appointments.FirstOrDefault(a =>             
-                        a.AppointmentDate == appointmentDateTime && 
+                    var existingAppointmentForUser = _context.Appointments.FirstOrDefault(a =>
+                        a.AppointmentDate == appointmentDateTime &&
                         a.AppointmentUserID == userId);
 
                     if (existingAppointmentForUser != null)
@@ -158,7 +145,7 @@ namespace Hairdresser.Controllers
                     await _context.SaveChangesAsync();
 
                     TempData["SuccessMessage"] = "Appointment successfully created!";
-                    return RedirectToAction("Appointments","User");
+                    return RedirectToAction("Appointments", "User");
                 }
                 catch (Exception ex)
                 {
@@ -204,58 +191,162 @@ namespace Hairdresser.Controllers
             return Json(new { success = true, availableHours });
         }
 
-        // Fotoðrafý yüklemek için GET metodu
-        [HttpGet]
-        public IActionResult UploadImage()
-        {
-            return View();
-        }
-
-        // Fotoðrafý iþlemek ve RapidAPI'ye göndermek için POST metodu
+        // POST: Kullanýcýdan gelen veriyi API'ye gönder
         [HttpPost]
-        public async Task<IActionResult> AnalyzeImage(IFormFile imageFile)
+        public async Task<IActionResult> AnalyzeImage(string imageUrl, string editingType, string colorDescription, string hairstyleDescription)
         {
-            if (imageFile == null || imageFile.Length == 0)
+            // API URL
+            string ApiUrl = "https://api.magicapi.dev/api/v1/magicapi/hair/hair";
+            // API'ye gönderilecek veri
+            var requestData = new
             {
-                ViewData["APIResponse"] = "Please select a valid image file.";
-                return View("Index"); // Ana sayfayý yeniden yükler
-            }
-            if (!imageFile.ContentType.StartsWith("image/"))
-            {
-                return BadRequest("Invalid file format. Please upload an image.");
-            }
-
-            Console.WriteLine($"Received file: {imageFile.FileName}, Size: {imageFile.Length}");
+                image = "https://replicate.delivery/mgxm/b8be17a7-abcb-4421-80f2-e6a1e3fe38c7/MarkZuckerberg.jpg",
+                editing_type = "both",
+                color_description = "blond",
+                hairstyle_description = "hi-top fade hairstyle"
+            };
             try
             {
-                // Resim dosyasýný geçici bir akýþa kopyala
-                using var stream = new MemoryStream();
-                await imageFile.CopyToAsync(stream);
-                //byte[] imageData = stream.ToArray();
-                stream.Position = 0;
-
-                // Rapid API üzerinden çaðrý yapmak için servisinizi çaðýrýn
-                string apiResult = await _rapidAPIService.AnalyzeImageAsync(stream);
-                if (string.IsNullOrEmpty(apiResult))
+                // API'ye POST isteði gönder
+                var requestMessage = new HttpRequestMessage(HttpMethod.Post, ApiUrl)
                 {
-                    Console.WriteLine("API returned an empty response.");
-                    return BadRequest("API did not return any results.");
-                }
+                    Content = new StringContent(JsonConvert.SerializeObject(requestData), Encoding.UTF8, "application/json")
+                };
 
-                //// API sonucunu ViewData'ya ekle
-                //ViewData["APIResponse"] = apiResult;
-                return Json(apiResult); // JSON formatýnda API sonucunu döndür
+                // x-magicapi-key ve Content-Type baþlýklarýný ekle
+                requestMessage.Headers.Add("x-magicapi-key", ApiKey);
+                //requestMessage.Content.Headers.Add("Content-Type", "application/json");
+
+                // API'ye istek gönder
+                var response = await _httpClient.SendAsync(requestMessage);
+
+                // Dönüþ verisini JSON olarak al
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+
+                // Baþarýlý dönüþ
+                if (response.IsSuccessStatusCode)
+                {
+                    // API'den gelen yanýtý iþleme
+                    dynamic json = JsonConvert.DeserializeObject(jsonResponse);
+                    string requestId = json?.request_id;
+
+                    // request_id deðerini konsola yazdýr
+                    Console.WriteLine($"Request ID: {requestId}");
+
+                    // request_id'yi TempData'ya ekleyelim
+                    TempData["RequestId"] = requestId;
+
+                    // Baþarýyla alýnan request_id deðerini GET metoduna gönder
+                    return RedirectToAction("GetResult");
+                }
+                else
+                {
+                    // Hata durumu: API'den dönen hata mesajýný konsola yazdýr
+                    Console.WriteLine($"API Error: {jsonResponse}");
+                    return View("Error");
+                }
             }
             catch (Exception ex)
             {
-                //// Hata durumunda hata mesajýný ayarla
-                //ViewData["APIResponse"] = $"Error: {ex.Message}";
-                return Json($"Error: {ex.Message}");
+                // Hata durumunda hata mesajýný konsola yazdýr
+                Console.WriteLine($"Exception: {ex.Message}");
+                return View("Error");
             }
-
-            //return View("Index"); // Ana sayfaya yönlendir
         }
 
+        // GET: API'den sonucun alýnmasý
+        [HttpGet]
+        public async Task<IActionResult> GetResult()
+        {
+            // TempData'dan request_id'yi al
+            string requestId = TempData["RequestId"]?.ToString();
+            Console.WriteLine($"Request ID: {requestId}");
+
+            if (string.IsNullOrEmpty(requestId))
+            {
+                Console.WriteLine("Error: request_id not found.");
+                return View("Error");
+            }
+            // API URL
+            string apiUrl = $"https://api.magicapi.dev/api/v1/magicapi/hair/predictions/{requestId}";
+            //var requestMessage = new HttpRequestMessage(HttpMethod.Get, apiUrl);
+            //requestMessage.Headers.Add("x-magicapi-key", ApiKey);  // API anahtarýnýzý buraya yazýn
+            //requestMessage.Headers.Add("request_id", requestId);  // request_id baþlýk olarak ekleniyor
+
+            try
+            {
+                
+                // Durum kontrolü
+                var result = await CheckProcessingStatus(apiUrl, requestId);
+
+                // Sonuç baþarýlýysa, modalda göster
+                if (!string.IsNullOrEmpty(result))
+                {
+                    //string processedImageUrl = result.ToString();
+                    return Redirect(result);
+                }
+                else
+                {
+                    Console.WriteLine("Processing failed or result is empty.");
+                    return View("Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Hata durumu
+                Console.WriteLine($"Exception: {ex.Message}");
+                return View("Error");
+            }
+        }
+
+        // Durum kontrol fonksiyonu
+        private async Task<string> CheckProcessingStatus(string apiUrl, string requestId)
+        {
+            // API'den sonucu kontrol et
+            var requestMessage = new HttpRequestMessage(HttpMethod.Get, apiUrl);
+            requestMessage.Headers.Add("x-magicapi-key", ApiKey);  // API anahtarýnýzý buraya yazýn
+            requestMessage.Headers.Add("request_id", requestId);  // request_id baþlýk olarak ekleniyor
+
+            try
+            {
+                var response = await _httpClient.SendAsync(requestMessage);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+
+                dynamic json = JsonConvert.DeserializeObject(jsonResponse);
+                string status = json?.status;
+                string result = json?.result;
+
+                Console.WriteLine($"Status: {status}");
+                Console.WriteLine($"Result: {result}");
+
+                if (status == "succeeded" && !string.IsNullOrEmpty(result))
+                {
+                    // Ýþlem baþarýlý ise sonucu döndürüyoruz
+                    return result;
+                }
+                else if (status == "starting" || status == "processing")
+                {
+                    // Ýþlem "starting" durumunda ise 5 saniye bekle ve tekrar kontrol et
+                    Console.WriteLine($"Status is {status}, retrying in 5 seconds...");
+                    await Task.Delay(5000);  // 5 saniye bekle
+
+                    // Durumu tekrar kontrol et
+                    return await CheckProcessingStatus(apiUrl, requestId);
+                }
+                else
+                {
+                    // Baþka bir hata durumu varsa
+                    Console.WriteLine($"Error: Status {status}, Result: {result}");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Hata durumu
+                Console.WriteLine($"Exception during status check: {ex.Message}");
+                return null;
+            }
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
