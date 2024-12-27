@@ -41,8 +41,84 @@
       "PackagePath": "staticwebassets\\img\\back.jpg"
     },
     {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\home.jpg",
+      "PackagePath": "staticwebassets\\img\\home.jpg"
+    },
+    {
       "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\imean.jpg",
       "PackagePath": "staticwebassets\\img\\imean.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\boya.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\boya.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\boya2.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\boya2.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\boya3.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\boya3.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\boya4.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\boya4.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\ekipman.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\ekipman.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\fon.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\fon.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\fon2.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\fon2.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\fon3.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\fon3.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\haircut.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\haircut.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\haircut2.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\haircut2.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\haircut3.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\haircut3.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\haircut4.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\haircut4.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\happy.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\happy.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\happy2.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\happy2.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\masa.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\masa.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\masa2.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\masa2.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\masa3.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\masa3.jpg"
+    },
+    {
+      "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\masonry-portfolio\\masa4.jpg",
+      "PackagePath": "staticwebassets\\img\\masonry-portfolio\\masa4.jpg"
     },
     {
       "Id": "D:\\workspace\\Term_5\\Hairdresser\\wwwroot\\img\\thatsIt.jpg",

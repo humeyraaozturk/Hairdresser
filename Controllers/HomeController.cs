@@ -17,7 +17,7 @@ namespace Hairdresser.Controllers
     {
         private readonly AppDbContext _context; // Veritabaný baðlamý
         private readonly HttpClient _httpClient;
-        private const string ApiKey = "YOUR_API_KEY";
+        private const string ApiKey = "cm52n6jhm0001ks03dmpl1vmv";
         public HomeController(AppDbContext context, HttpClient HttpClient)
         {
             _context = context;
@@ -200,10 +200,10 @@ namespace Hairdresser.Controllers
             // API'ye gönderilecek veri
             var requestData = new
             {
-                image = "https://replicate.delivery/mgxm/b8be17a7-abcb-4421-80f2-e6a1e3fe38c7/MarkZuckerberg.jpg",
-                editing_type = "both",
-                color_description = "blond",
-                hairstyle_description = "hi-top fade hairstyle"
+                image = imageUrl,
+                editing_type = editingType,
+                color_description = colorDescription,
+                hairstyle_description = hairstyleDescription
             };
             try
             {

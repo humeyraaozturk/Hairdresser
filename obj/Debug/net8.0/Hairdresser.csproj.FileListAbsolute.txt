@@ -193,7 +193,6 @@ D:\workspace\Term_5\WebProgramlama\Hairdresser\Hairdresser\bin\Debug\net8.0\zh-H
 D:\workspace\Term_5\WebProgramlama\Hairdresser\Hairdresser\bin\Debug\net8.0\BCrypt.Net-Next.dll
 D:\workspace\Term_5\WebProgramlama\Hairdresser\Hairdresser\bin\Debug\net8.0\System.Security.Permissions.dll
 D:\workspace\Term_5\Hairdresser\bin\Debug\net8.0\wwwroot\vendor\bootstrap-icons\bootstrap-icons.json
-D:\workspace\Term_5\Hairdresser\bin\Debug\net8.0\Append\assets\vendor\bootstrap-icons\bootstrap-icons.json
 D:\workspace\Term_5\Hairdresser\bin\Debug\net8.0\appsettings.Development.json
 D:\workspace\Term_5\Hairdresser\bin\Debug\net8.0\appsettings.json
 D:\workspace\Term_5\Hairdresser\bin\Debug\net8.0\Hairdresser.staticwebassets.runtime.json

@@ -124,5 +124,32 @@ namespace Hairdresser.Controllers
             return RedirectToAction("Dashboard","Admin");
         }
 
+        public IActionResult EmployeePerformance()
+        {
+            var performanceData = _context.Appointments
+                .GroupBy(a => a.AppointmentEmployeeID) // Çalışanlara göre gruplama
+                .Select(group => new
+                {
+                    EmployeeID = group.Key,
+                    AppointmentCount = group.Count() // Çalışana ait randevu sayısı
+                })
+                .OrderByDescending(x => x.AppointmentCount) // Randevu sayısına göre sıralama
+                .Join(_context.Employees, // Çalışan verilerini join et
+                       a => a.EmployeeID,
+                       e => e.EmployeeID,
+                       (a, e) => new
+                       {
+                           e.FullName, // Çalışanın adı
+                           a.AppointmentCount // Randevu sayısı
+                       })
+                .ToList();
+
+            ViewBag.EmployeePerformance = performanceData; // Veriyi ViewBag'e aktar
+
+            return View();
+        }
+
+
+
     }
 }
